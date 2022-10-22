@@ -8,22 +8,22 @@ namespace Task1
         public static void Main()
         {
             char[][] matrix = CreateMatrix();
-            Points start = FindPoints(matrix, 'S');
-            Points finish = FindPoints(matrix, 'F');
+            int[] start = FindPoints(matrix, 'S');
             MatrixOutput(matrix);
-            
+            FindPath(matrix, start);
+            MatrixOutput(matrix);
         }
 
-        public static Points FindPoints(char[][] matrix, char C)
+        public static int[] FindPoints(char[][] matrix, char C)
         {
-            Points value = new Points(0,0);
+            int[] value = new int[2];
             for (int i = 0; i < matrix.Length; i++)
             {
                 for (int j = 0; j < matrix[i].Length; j++)
                 {
-                    if(matrix[i][j] == C)
+                    if (matrix[i][j] == C)
                     {
-                        value = new Points(i, j);
+                        value = new int[] { i, j};
                     }
                 }
             }
@@ -36,7 +36,7 @@ namespace Task1
             {
                 for (int j = 0; j < matrix[i].Length; j++)
                 {
-
+                    Console.Write(matrix[i][j]);
                 }
                 Console.WriteLine();
             }
@@ -54,85 +54,119 @@ namespace Task1
             arr[6] = "..####..".ToCharArray();
             arr[7] = "#.......".ToCharArray();
             return arr;
-        }       
-
-        /*public static void FindPath(char[][] matrix, Points start)
-        {
-            Queue q = new Queue();
-            Points current = new Points(start.Y, start.X);
-            q.Add(current);
-
-            bool isReached = false;
-            int avaliable = 0;
-
-            while (!isReached)
-            {
-                current
-                if ((avaliable = IsAvailable(matrix, new Points(current.Y, current.X))) == 0)
-                {
-                    q.Add(new Points(current.Y + 1));
-                }
-                else if(avaliable == 1)
-                {
-
-                }
-            }
         }
 
-        public static int IsAvailable(char[][] matrix, Points current)
+        public static bool[][] FindPath(char[][] matrix, int[] start)
         {
-            if (matrix[current.Y][current.X] == '#') return -1;
-            else if (matrix[current.Y][current.X] == '.') return 0;
-            else return 1;
-        }*/
+            Queue q = new Queue();
+            q.Create();
+            int index = 0;
+            q.Add(start[1], start[0], index);
+            bool[][] available = CreateBoolArr(matrix);
 
+            while (q.GetSize() > 0)
+            {
+                int[] currentPoint = q.Poll();
+                try
+                {
+                    if (matrix[currentPoint[1] + 1][currentPoint[0] == '.' && available[currentPoint[1] + 1][currentPoint[0])
+                    {
+                        q.Add(currentPoint[1] + 1, currentPoint[0], index);
+                        available[currentPoint[1] + 1][currentPoint[0]] = false;
+                    }
+                    else if (matrix[currentPoint[1] + 1][currentPoint[0]] == 'F')
+                    {
+                        break;
+                    }
+                }
+                catch { }
 
-    }
+                try
+                {
+                    if (matrix[currentPoint.Y - 1][currentPoint.X] == '.' && available[currentPoint.Y - 1][currentPoint.X])
+                    {
+                        q.Add(new Points(currentPoint.Y - 1, currentPoint.X));
+                        available[currentPoint.Y - 1][currentPoint.X] = false;
+                    }
+                    else if (matrix[currentPoint.Y - 1][currentPoint.X] == 'F')
+                    {
+                        break;
+                    }
+                }
+                catch { }
 
+                try
+                {
+                    if (matrix[currentPoint.Y][currentPoint.X + 1] == '.' && available[currentPoint.Y][currentPoint.X + 1])
+                    {
+                        q.Add(new Points(currentPoint.Y, currentPoint.X + 1));
+                        available[currentPoint.Y][currentPoint.X + 1] = false;
+                    }
+                    else if (matrix[currentPoint.Y][currentPoint.X + 1] == 'F')
+                    {
+                        break;
+                    }
+                }
+                catch { }
 
+                try
+                {
+                    if (matrix[currentPoint.Y][currentPoint.X - 1] == '.' && available[currentPoint.Y][currentPoint.X - 1])
+                    {
+                        q.Add(new Points(currentPoint.Y, currentPoint.X - 1));
+                        available[currentPoint.Y][currentPoint.X - 1] = false;
+                    }
+                    else if (matrix[currentPoint.Y][currentPoint.X - 1] == 'F')
+                    {
+                        break;
+                    }
+                }
+                catch { }
+            }
+            return available;
+        }
 
-
-
-
-
-    public struct Points
-    {
-        public int X;
-        public int Y;
-
-        public Points(int X, int Y)
+        static bool[][] CreateBoolArr(char[][] matrix)
         {
-            this.X = X;
-            this.Y = Y;
+            bool[][] arr = new bool[matrix.Length][];
+            for (int i = 0; i < arr.Length; i++)
+            {
+                arr[i] = new bool[matrix[i].Length];
+                for (int j = 0; j < arr[i].Length; j++)
+                {
+                    arr[i][j] = true;
+                }
+            }
+            return arr;
         }
     }
 
     class Queue
     {
-        public Points[] queue;
+        public int[][] queue;
 
-        public Points[] Create()
+        public int[][] Create()
         {
-            queue = new Points[0];
+            queue = new int[0][];
             return queue;
         }
 
-        public Points[] Add(Points value)
+        public int[][] Add(int x, int y, int index)
         {
-            Points[] newQueue = new Points[queue.Length + 1];
+            int[][] newQueue = new int[queue.Length + 1][];
             for (int i = 0; i < queue.Length; i++)
             {
                 newQueue[i] = queue[i];
             }
-            newQueue[queue.Length] = value;
+            newQueue[queue.Length] = new int[3] { x, y, index };
             queue = newQueue;
             return queue;
-            
+
         }
-        public Points Poll()
+        public int[] Poll()
         {
-            Points[] newQueue = new Points[queue.Length - 1];
-            Points value = queue[0];
+            int[][] newQueue = new int[queue.Length - 1][];
+            int[] value = queue[0];
             for (int i = 0; i < newQueue.Length; i++)
             {
                 newQueue[i] = queue[i + 1];
