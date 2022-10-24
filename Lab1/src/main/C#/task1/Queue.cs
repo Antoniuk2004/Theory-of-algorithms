@@ -8,26 +8,28 @@ namespace Task1
         {
             Queue q = new Queue();
             q.Create();
-            q.Add(10);
-            q.Add(11);
-            int value = q.Poll();
-            Console.WriteLine(value);
-            Console.WriteLine(q.GetSize());
+            q.Add("hello");
+            q.Add(123);
+            q.Add(11.5);
+            Console.WriteLine("Size: " + q.GetSize());
+            Console.WriteLine("Value: " + q.Poll());
+            Console.WriteLine("Value: " + q.Poll());
+            Console.WriteLine("Value: " + q.Poll());
         }
     }
     class Queue
     {
-        public int[] queue;
+        public object[] queue;
 
-        public int[] Create()
+        public object[] Create()
         {
-            queue = new int[0];
+            queue = new object[0];
             return queue;
         }
 
-        public int[] Add(int value)
+        public object[] Add(object value)
         {
-            int[] newQueue = new int[queue.Length + 1];
+            object[] newQueue = new object[queue.Length + 1];
             for (int i = 0; i < queue.Length; i++)
             {
                 newQueue[i] = queue[i];
@@ -37,10 +39,10 @@ namespace Task1
             return queue;
 
         }
-        public int Poll()
+        public object Poll()
         {
-            int[] newQueue = new int[queue.Length - 1];
-            int value = queue[0];
+            object[] newQueue = new object[queue.Length - 1];
+            object value = queue[0];
             for (int i = 0; i < newQueue.Length; i++)
             {
                 newQueue[i] = queue[i + 1];
