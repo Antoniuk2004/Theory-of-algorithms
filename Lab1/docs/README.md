@@ -32,10 +32,12 @@
 
 # Блок схеми:
 
-## FindPath
+FindPath\
 ![FindPath(1)](/Lab1/docs/FindPath(1).png)
 ![FindPath(2)](/Lab1/docs/FindPath(2).png)
 ![FindPath(3)](/Lab1/docs/FindPath(3).png)
 ![FindPath(4)](/Lab1/docs/FindPath(4).png)
 ![FindPath(5)](/Lab1/docs/FindPath(5).png)
 ![FindPath(6)](/Lab1/docs/FindPath(6).png)
+IsAvailable\
+![IsAvailable](/Lab1/docs/IsAvailable.png)
