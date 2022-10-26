@@ -31,4 +31,4 @@
 Правильність
 
 Блок схеми:
-!(https://github.com/Antoniuk2004/Theory-of-algorithms/tree/main/Lab1/docs/FindPath(1))
+!(https://github.com/Antoniuk2004/Theory-of-algorithms/blob/main/Lab1/docs/FindPath(1).png)

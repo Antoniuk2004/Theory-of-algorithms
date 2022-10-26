@@ -2,10 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="9b7d74d7-962a-46ff-b27d-646046c4f1fb" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Lab1/docs/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/Lab1/docs/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Lab1/src/test/C#/task1/QueueTest.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Lab1/src/test/C#/task1/QueueTest.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Lab1/src/test/C#/task2/PathFinder.cs" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -42,7 +39,7 @@
       <updated>1666641007652</updated>
       <workItem from="1666641010773" duration="8000" />
       <workItem from="1666810064627" duration="2632000" />
-      <workItem from="1666817181945" duration="162000" />
+      <workItem from="1666817181945" duration="243000" />
     </task>
     <servers />
   </component>
