@@ -6,6 +6,20 @@ namespace Task1
     {
         public static void Main()
         {
+            Queue q = new Queue();
+            q.Create();
+            q.Add("hello");
+            q.Add(123);
+            q.Add(11.5);
+            q.Add('p');
+            q.Add(Math.PI);
+            q.Add(Math.PI);
+            Console.WriteLine("Size: " + q.GetSize());//Size: 6
+            Console.WriteLine("Value: " + q.Poll());//Value: hello
+            Console.WriteLine("Value: " + q.Poll());//Value: 123
+            Console.WriteLine("Value: " + q.Poll());//Value: 11.5
+            Console.WriteLine("Value: " + q.Poll());//Value: p
+            Console.WriteLine("Value: " + q.Poll());//Value: 3.141592653589793
         }
     }
     class Queue
