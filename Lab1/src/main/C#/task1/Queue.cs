@@ -30,7 +30,7 @@ namespace Task1
             return queue;
 
         }
-        public object Poll()
+        public object Pop()
         {
             object[] newQueue = new object[queue.Length - 1];
             object value = queue[0];

@@ -23,15 +23,15 @@ namespace Task1
             bool result = false;
             result = q.GetSize().Equals(expectedValue1);
             Console.WriteLine("Is first value equal to expected value(5): " + result);
-            result = q.Poll().Equals(expectedValue2);
+            result = q.Pop().Equals(expectedValue2);
             Console.WriteLine("Is first second equal to expected value(\"hello\"): " + result);
-            result = q.Poll().Equals(expectedValue3);
+            result = q.Pop().Equals(expectedValue3);
             Console.WriteLine("Is first third equal to expected value(123): " + result);
-            result = q.Poll().Equals(expectedValue4);
+            result = q.Pop().Equals(expectedValue4);
             Console.WriteLine("Is first fourth equal to expected value(11.5): " + result);
-            result = q.Poll().Equals(expectedValue5);
+            result = q.Pop().Equals(expectedValue5);
             Console.WriteLine("Is fifth value equal to expected value('p'): " + result);
-            result = q.Poll().Equals(expectedValue6);
+            result = q.Pop().Equals(expectedValue6);
             Console.WriteLine("Is sixth value equal to expected value(Pi): " + result);
         }
     }
@@ -57,7 +57,7 @@ namespace Task1
             return queue;
 
         }
-        public object Poll()
+        public object Pop()
         {
             object[] newQueue = new object[queue.Length - 1];
             object value = queue[0];

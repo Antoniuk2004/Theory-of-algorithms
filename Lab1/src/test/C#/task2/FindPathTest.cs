@@ -189,7 +189,7 @@ namespace Task1
             List<Point> currentDirections = new List<Point>();
             while (q.GetSize() > 0)
             {
-                Data currentState = q.Poll();
+                Data currentState = q.Pop();
                 Point currentPoint = currentState.P;
                 currentDirections = currentState.Directions;
                 if (IsAvailable(grid, new Point(currentPoint.firstCoord + 1, 
@@ -330,7 +330,7 @@ namespace Task1
             return queue;
 
         }
-        public Data Poll()
+        public Data Pop()
         {
             Data[] newQueue = new Data[queue.Length - 1];
             Data value = queue[0];
