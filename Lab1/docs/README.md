@@ -31,4 +31,4 @@
 Правильність
 
 Блок схеми:\
-!(Lab1/docs/FindPath(1).png)
+![FindPath(1)](/Lab1/docs/FindPath(1).png)
