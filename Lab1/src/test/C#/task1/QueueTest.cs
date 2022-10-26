@@ -13,13 +13,26 @@ namespace Task1
             q.Add(11.5);
             q.Add('p');
             q.Add(Math.PI);
-            q.Add(Math.PI);
-            Console.WriteLine("Size: " + q.GetSize());//Size: 6
-            Console.WriteLine("Value: " + q.Poll());//Value: hello
-            Console.WriteLine("Value: " + q.Poll());//Value: 123
-            Console.WriteLine("Value: " + q.Poll());//Value: 11.5
-            Console.WriteLine("Value: " + q.Poll());//Value: p
-            Console.WriteLine("Value: " + q.Poll());//Value: 3.141592653589793
+            int expectedValue1 = 5;
+            string expectedValue2 = "hello";
+            int expectedValue3 = 123;
+            double expectedValue4 = 11.5;
+            char expectedValue5 = 'p';
+            double expectedValue6 = Math.PI;
+
+            bool result = false;
+            result = q.GetSize().Equals(expectedValue1);
+            Console.WriteLine("Is first value equal to expected value(5): " + result);
+            result = q.Poll().Equals(expectedValue2);
+            Console.WriteLine("Is first second equal to expected value(\"hello\"): " + result);
+            result = q.Poll().Equals(expectedValue3);
+            Console.WriteLine("Is first third equal to expected value(123): " + result);
+            result = q.Poll().Equals(expectedValue4);
+            Console.WriteLine("Is first fourth equal to expected value(11.5): " + result);
+            result = q.Poll().Equals(expectedValue5);
+            Console.WriteLine("Is fifth value equal to expected value('p'): " + result);
+            result = q.Poll().Equals(expectedValue6);
+            Console.WriteLine("Is sixth value equal to expected value(Pi): " + result);
         }
     }
     class Queue
