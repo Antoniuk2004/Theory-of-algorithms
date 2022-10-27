@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using System.Text;
 
 namespace Task1
 {
@@ -9,6 +10,7 @@ namespace Task1
 
         public static void Main()
         {
+            Console.OutputEncoding = Encoding.Unicode;
             Console.WriteLine("Test 1");
             Test1();
             Console.WriteLine("\nTest 2");
@@ -39,11 +41,11 @@ namespace Task1
 
             char[][] expectedGrid = new char[8][];
             expectedGrid[0] = "#.S.....".ToCharArray();
-            expectedGrid[1] = "##x#.###".ToCharArray();
-            expectedGrid[2] = "xxx.....".ToCharArray();
-            expectedGrid[3] = "x####.#.".ToCharArray();
-            expectedGrid[4] = "xxxx.#..".ToCharArray();
-            expectedGrid[5] = "..#xF#..".ToCharArray();
+            expectedGrid[1] = "##■#.###".ToCharArray();
+            expectedGrid[2] = "■■■.....".ToCharArray();
+            expectedGrid[3] = "■####.#.".ToCharArray();
+            expectedGrid[4] = "■■■■.#..".ToCharArray();
+            expectedGrid[5] = "..#■F#..".ToCharArray();
             expectedGrid[6] = "..####..".ToCharArray();
             expectedGrid[7] = "#.......".ToCharArray();
             Console.WriteLine("Expected path: ");
@@ -74,11 +76,11 @@ namespace Task1
 
             char[][] expectedGrid = new char[8][];
             expectedGrid[0] = "S....".ToCharArray();
-            expectedGrid[1] = "x....".ToCharArray();
-            expectedGrid[2] = "x....".ToCharArray();
-            expectedGrid[3] = "x....".ToCharArray();
-            expectedGrid[4] = "x....".ToCharArray();
-            expectedGrid[5] = "xxF..".ToCharArray();
+            expectedGrid[1] = "■....".ToCharArray();
+            expectedGrid[2] = "■....".ToCharArray();
+            expectedGrid[3] = "■....".ToCharArray();
+            expectedGrid[4] = "■....".ToCharArray();
+            expectedGrid[5] = "■■F..".ToCharArray();
             expectedGrid[6] = new String('.', 5).ToCharArray();
             expectedGrid[7] = new String('.', 5).ToCharArray();
             Console.WriteLine("Expected path: ");
@@ -104,11 +106,11 @@ namespace Task1
             GridOutput(grid);
 
             char[][] expectedGrid = new char[5][];
-            expectedGrid[0] = "Fxxx#".ToCharArray();
-            expectedGrid[1] = "###x.".ToCharArray();
-            expectedGrid[2] = "#.xx#".ToCharArray();
-            expectedGrid[3] = "#.x##".ToCharArray();
-            expectedGrid[4] = "#.xxS".ToCharArray();
+            expectedGrid[0] = "F■■■#".ToCharArray();
+            expectedGrid[1] = "###■.".ToCharArray();
+            expectedGrid[2] = "#.■■#".ToCharArray();
+            expectedGrid[3] = "#.■##".ToCharArray();
+            expectedGrid[4] = "#.■■S".ToCharArray();
             Console.WriteLine("Expected path: ");
             GridOutput(expectedGrid);
             bool same = AreTheSame(grid, expectedGrid);
@@ -131,14 +133,14 @@ namespace Task1
         {
             for (int i = 0; i < path.Count; i++)
             {
-                grid[path[i].firstCoord][path[i].secondCoord] = 'x';
+                grid[path[i].firstCoord][path[i].secondCoord] = '■';
             }
             return grid;
         }
 
         public static Point FindPoints(char[][] grid, char C)
         {
-            Point value = new Point(0,0);
+            Point value = new Point(0, 0);
             for (int i = 0; i < grid.Length; i++)
             {
                 for (int j = 0; j < grid[i].Length; j++)
@@ -192,7 +194,7 @@ namespace Task1
                 Data currentState = q.Pop();
                 Point currentPoint = currentState.P;
                 currentDirections = currentState.Directions;
-                if (IsAvailable(grid, new Point(currentPoint.firstCoord + 1, 
+                if (IsAvailable(grid, new Point(currentPoint.firstCoord + 1,
                     currentPoint.secondCoord), available, ref isFinished))//down
                 {
                     available[currentPoint.firstCoord + 1][currentPoint.secondCoord] = false;
@@ -205,7 +207,7 @@ namespace Task1
                     listOfPath.Add(new Point(currentPoint.firstCoord + 1, currentPoint.secondCoord));
                     q.Add(new Point(currentPoint.firstCoord + 1, currentPoint.secondCoord), listOfPath);
                 }
-                if (IsAvailable(grid, new Point(currentPoint.firstCoord - 1, 
+                if (IsAvailable(grid, new Point(currentPoint.firstCoord - 1,
                     currentPoint.secondCoord), available, ref isFinished))//up
                 {
                     available[currentPoint.firstCoord - 1][currentPoint.secondCoord] = false;
@@ -218,7 +220,7 @@ namespace Task1
                     listOfPath.Add(new Point(currentPoint.firstCoord - 1, currentPoint.secondCoord));
                     q.Add(new Point(currentPoint.firstCoord - 1, currentPoint.secondCoord), listOfPath);
                 }
-                if (IsAvailable(grid, new Point(currentPoint.firstCoord, currentPoint.secondCoord + 1), 
+                if (IsAvailable(grid, new Point(currentPoint.firstCoord, currentPoint.secondCoord + 1),
                     available, ref isFinished))//right
                 {
                     available[currentPoint.firstCoord][currentPoint.secondCoord + 1] = false;
@@ -231,7 +233,7 @@ namespace Task1
                     listOfPath.Add(new Point(currentPoint.firstCoord, currentPoint.secondCoord + 1));
                     q.Add(new Point(currentPoint.firstCoord, currentPoint.secondCoord + 1), listOfPath);
                 }
-                if (IsAvailable(grid, new Point(currentPoint.firstCoord, currentPoint.secondCoord - 1), 
+                if (IsAvailable(grid, new Point(currentPoint.firstCoord, currentPoint.secondCoord - 1),
                     available, ref isFinished))//left
                 {
                     available[currentPoint.firstCoord][currentPoint.secondCoord - 1] = false;
@@ -251,7 +253,7 @@ namespace Task1
         static bool IsAvailable(char[][] grid, Point p, bool[][] available, ref bool isFinished)
         {
             if (p.firstCoord >= 0
-                && p.secondCoord  >= 0
+                && p.secondCoord >= 0
                 && p.firstCoord < grid.Length
                 && p.secondCoord < grid[0].Length)
             {
@@ -345,5 +347,5 @@ namespace Task1
         {
             return queue.Length;
         }
-    }    
+    }
 }

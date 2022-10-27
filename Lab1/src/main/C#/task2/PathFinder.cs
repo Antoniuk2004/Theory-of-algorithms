@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using System.Text;
 
 namespace Task1
 {
@@ -9,6 +10,7 @@ namespace Task1
 
         public static void Main()
         {
+            Console.OutputEncoding = Encoding.Unicode;
             char[][] grid = GridInput();
             Point start = FindPoints(grid, 'S');
             GridOutput(grid);
@@ -21,7 +23,7 @@ namespace Task1
         {
             for (int i = 0; i < path.Count; i++)
             {
-                grid[path[i].firstCoord][path[i].secondCoord] = 'x';
+                grid[path[i].firstCoord][path[i].secondCoord] = '■';
             }
             return grid;
         }
