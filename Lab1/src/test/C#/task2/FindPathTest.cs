@@ -17,6 +17,8 @@ namespace Task1
             Test2();
             Console.WriteLine("\nTest 3");
             Test3();
+            Console.WriteLine("\nTest 4");
+            Test4();
         }
 
         public static void Test1()
@@ -34,9 +36,17 @@ namespace Task1
 
             GridOutput(grid);
             List<Point> path = FindPath(grid, start);
-            grid = InputPathToGrid(grid, path, start);
-            Console.WriteLine("Path: ");
-            GridOutput(grid);
+            if (path == null)
+            {
+                Console.WriteLine("Finish cannot be reached.");
+            }
+            else
+            {
+                grid = InputPathToGrid(grid, path, start);
+                Console.WriteLine("Path: ");
+                GridOutput(grid);
+            }
+
 
 
             char[][] expectedGrid = new char[8][];
@@ -69,9 +79,16 @@ namespace Task1
 
             GridOutput(grid);
             List<Point> path = FindPath(grid, start);
-            grid = InputPathToGrid(grid, path, start);
-            Console.WriteLine("Path: ");
-            GridOutput(grid);
+            if (path == null)
+            {
+                Console.WriteLine("Finish cannot be reached.");
+            }
+            else
+            {
+                grid = InputPathToGrid(grid, path, start);
+                Console.WriteLine("Path: ");
+                GridOutput(grid);
+            }
 
 
             char[][] expectedGrid = new char[8][];
@@ -101,9 +118,16 @@ namespace Task1
 
             GridOutput(grid);
             List<Point> path = FindPath(grid, start);
-            grid = InputPathToGrid(grid, path, start);
-            Console.WriteLine("Path: ");
-            GridOutput(grid);
+            if (path == null)
+            {
+                Console.WriteLine("Finish cannot be reached.");
+            }
+            else
+            {
+                grid = InputPathToGrid(grid, path, start);
+                Console.WriteLine("Path: ");
+                GridOutput(grid);
+            }
 
             char[][] expectedGrid = new char[5][];
             expectedGrid[0] = "F■■■#".ToCharArray();
@@ -115,6 +139,38 @@ namespace Task1
             GridOutput(expectedGrid);
             bool same = AreTheSame(grid, expectedGrid);
             Console.WriteLine("Are grids the same: " + same);
+        }
+        public static void Test4()
+        {
+            char[][] grid = new char[5][];
+            grid[0] = "F...#".ToCharArray();
+            grid[1] = "#####".ToCharArray();
+            grid[2] = "#...#".ToCharArray();
+            grid[3] = "#..##".ToCharArray();
+            grid[4] = "#...S".ToCharArray();
+            Point start = FindPoints(grid, 'S');
+
+            GridOutput(grid);
+            List<Point> path = FindPath(grid, start);
+            if (path == null)
+            {
+                Console.WriteLine("Finish cannot be reached.");
+            }
+            else
+            {
+                grid = InputPathToGrid(grid, path, start);
+                Console.WriteLine("Path: ");
+                GridOutput(grid);
+            }
+
+            List<Point> exptectedPath = null;
+
+            bool same = false;
+            if (path == exptectedPath)
+            {
+                same = true;
+            }
+            Console.WriteLine("Are paths the same: " + same);
         }
 
         public static bool AreTheSame(char[][] grid, char[][] expectedGrid)
@@ -247,6 +303,7 @@ namespace Task1
                     q.Add(new Point(currentPoint.firstCoord, currentPoint.secondCoord - 1), listOfPath);
                 }
             }
+            if (!isFinished) currentDirections = null;
             return currentDirections;
         }
 

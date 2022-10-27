@@ -11,17 +11,10 @@ namespace Task1
         public static void Main()
         {
             Console.OutputEncoding = Encoding.Unicode;
-            char[][] grid = new char[8][];
-            grid[0] = "#.S.....".ToCharArray();
-            grid[1] = "##.#.###".ToCharArray();
-            grid[2] = new String('.', 8).ToCharArray();
-            grid[3] = ".####.#.".ToCharArray();
-            grid[4] = ".....#..".ToCharArray();
-            grid[5] = "..#.F#..".ToCharArray();
-            grid[6] = "..####..".ToCharArray();
-            grid[7] = "#.......".ToCharArray();
+            char[][] grid = GridInput();
             Point start = FindPoints(grid, 'S');
             List<List<Point>> listOfPaths = new List<List<Point>>();
+            bool finish;
             List<Point> path = FindPath(grid, start, out listOfPaths);
             OutputSteps(listOfPaths, grid);
         }
@@ -50,7 +43,7 @@ namespace Task1
                     temp[list[i][j].firstCoord][list[i][j].secondCoord] = grid[list[i][j].firstCoord][list[i][j].secondCoord];
                     temp[list[i][j].firstCoord][list[i][j].secondCoord] = '■';
                 }
-                
+
                 temp[list[i][list[i].Count - 1].firstCoord][list[i][list[i].Count - 1].secondCoord] = '█';
                 GridOutput(temp);
                 Console.WriteLine();
@@ -69,7 +62,7 @@ namespace Task1
 
         public static Point FindPoints(char[][] grid, char C)
         {
-            Point value = new Point(0,0);
+            Point value = new Point(0, 0);
             for (int i = 0; i < grid.Length; i++)
             {
                 for (int j = 0; j < grid[i].Length; j++)
@@ -100,7 +93,7 @@ namespace Task1
         {
             char[][] arr = new char[8][];
             arr[0] = "#.S.....".ToCharArray();
-            arr[1] = "##.#.###".ToCharArray();
+            arr[1] = "#.###.##".ToCharArray();
             arr[2] = new String('.', 8).ToCharArray();
             arr[3] = ".####.#.".ToCharArray();
             arr[4] = ".....#..".ToCharArray();
@@ -113,22 +106,19 @@ namespace Task1
 
         public static List<Point> FindPath(char[][] grid, Point start, out List<List<Point>> listOfPaths)
         {
-            
+
             Queue q = new Queue();
             q.Create();
             q.Add(start, new List<Point>());
             bool[][] available = CreateBoolArr(grid);
             List<Point> currentDirections = new List<Point>();
             listOfPaths = new List<List<Point>>();
-
-
-            char[][] tempGrid = new char[grid.Length][];
             while (q.GetSize() > 0)
             {
                 Data currentState = q.Pop();
                 Point currentPoint = currentState.P;
                 currentDirections = currentState.Directions;
-                if (IsAvailable(grid, new Point(currentPoint.firstCoord + 1, 
+                if (IsAvailable(grid, new Point(currentPoint.firstCoord + 1,
                     currentPoint.secondCoord), available))//down
                 {
                     if (grid[currentPoint.firstCoord + 1][currentPoint.secondCoord] == 'F')
@@ -146,7 +136,7 @@ namespace Task1
 
                     listOfPaths.Add(listOfPath);
                 }
-                if (IsAvailable(grid, new Point(currentPoint.firstCoord - 1, 
+                if (IsAvailable(grid, new Point(currentPoint.firstCoord - 1,
                     currentPoint.secondCoord), available))//up
                 {
                     if (grid[currentPoint.firstCoord - 1][currentPoint.secondCoord] == 'F')
@@ -164,7 +154,7 @@ namespace Task1
 
                     listOfPaths.Add(listOfPath);
                 }
-                if (IsAvailable(grid, new Point(currentPoint.firstCoord, currentPoint.secondCoord + 1), 
+                if (IsAvailable(grid, new Point(currentPoint.firstCoord, currentPoint.secondCoord + 1),
                     available))//right
                 {
                     if (grid[currentPoint.firstCoord][currentPoint.secondCoord + 1] == 'F')
@@ -182,7 +172,7 @@ namespace Task1
 
                     listOfPaths.Add(listOfPath);
                 }
-                if (IsAvailable(grid, new Point(currentPoint.firstCoord, currentPoint.secondCoord - 1), 
+                if (IsAvailable(grid, new Point(currentPoint.firstCoord, currentPoint.secondCoord - 1),
                     available))//left
                 {
                     if (grid[currentPoint.firstCoord][currentPoint.secondCoord - 1] == 'F')
@@ -207,7 +197,7 @@ namespace Task1
         static bool IsAvailable(char[][] grid, Point p, bool[][] available)
         {
             if (p.firstCoord >= 0
-                && p.secondCoord  >= 0
+                && p.secondCoord >= 0
                 && p.firstCoord < grid.Length
                 && p.secondCoord < grid[0].Length)
             {
@@ -238,16 +228,6 @@ namespace Task1
             return arr;
         }
 
-        static StringBuilder ListOutput(List<Point> list)
-        {
-            StringBuilder sb = new StringBuilder();
-            string str = "";
-            for (int i = 0; i < list.Count; i++)
-            {
-                sb.Append($"Point({list[i].firstCoord}; {list[i].secondCoord}) ");
-            }
-            return sb;
-        }
     }
 
     public struct Point
@@ -311,5 +291,5 @@ namespace Task1
         {
             return queue.Length;
         }
-    }    
+    }
 }

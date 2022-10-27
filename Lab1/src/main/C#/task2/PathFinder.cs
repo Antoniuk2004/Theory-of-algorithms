@@ -6,8 +6,6 @@ namespace Task1
 {
     class Program
     {
-        
-
         public static void Main()
         {
             Console.OutputEncoding = Encoding.Unicode;
@@ -16,8 +14,15 @@ namespace Task1
             GridOutput(grid);
             Console.WriteLine();
             List<Point> path = FindPath(grid, start);
-            grid = InputPathToGrid(grid, path, start);
-            GridOutput(grid);
+            if (path == null)
+            {
+                Console.WriteLine("Finish cannot be reached.");
+            }
+            else
+            {
+                grid = InputPathToGrid(grid, path, start);
+                GridOutput(grid);
+            }
         }
         public static char[][] InputPathToGrid(char[][] grid, List<Point> path, Point start)
         {
@@ -30,7 +35,7 @@ namespace Task1
 
         public static Point FindPoints(char[][] grid, char C)
         {
-            Point value = new Point(0,0);
+            Point value = new Point(0, 0);
             for (int i = 0; i < grid.Length; i++)
             {
                 for (int j = 0; j < grid[i].Length; j++)
@@ -61,7 +66,7 @@ namespace Task1
         {
             char[][] arr = new char[8][];
             arr[0] = "#.S.....".ToCharArray();
-            arr[1] = "##.#.###".ToCharArray();
+            arr[1] = "#.#.####".ToCharArray();
             arr[2] = new String('.', 8).ToCharArray();
             arr[3] = ".####.#.".ToCharArray();
             arr[4] = ".....#..".ToCharArray();
@@ -95,7 +100,7 @@ namespace Task1
                 Data currentState = q.Pop();
                 Point currentPoint = currentState.P;
                 currentDirections = currentState.Directions;
-                if (IsAvailable(grid, new Point(currentPoint.firstCoord + 1, 
+                if (IsAvailable(grid, new Point(currentPoint.firstCoord + 1,
                     currentPoint.secondCoord), available, ref isFinished))//down
                 {
                     available[currentPoint.firstCoord + 1][currentPoint.secondCoord] = false;
@@ -108,7 +113,7 @@ namespace Task1
                     listOfPath.Add(new Point(currentPoint.firstCoord + 1, currentPoint.secondCoord));
                     q.Add(new Point(currentPoint.firstCoord + 1, currentPoint.secondCoord), listOfPath);
                 }
-                if (IsAvailable(grid, new Point(currentPoint.firstCoord - 1, 
+                if (IsAvailable(grid, new Point(currentPoint.firstCoord - 1,
                     currentPoint.secondCoord), available, ref isFinished))//up
                 {
                     available[currentPoint.firstCoord - 1][currentPoint.secondCoord] = false;
@@ -121,7 +126,7 @@ namespace Task1
                     listOfPath.Add(new Point(currentPoint.firstCoord - 1, currentPoint.secondCoord));
                     q.Add(new Point(currentPoint.firstCoord - 1, currentPoint.secondCoord), listOfPath);
                 }
-                if (IsAvailable(grid, new Point(currentPoint.firstCoord, currentPoint.secondCoord + 1), 
+                if (IsAvailable(grid, new Point(currentPoint.firstCoord, currentPoint.secondCoord + 1),
                     available, ref isFinished))//right
                 {
                     available[currentPoint.firstCoord][currentPoint.secondCoord + 1] = false;
@@ -134,7 +139,7 @@ namespace Task1
                     listOfPath.Add(new Point(currentPoint.firstCoord, currentPoint.secondCoord + 1));
                     q.Add(new Point(currentPoint.firstCoord, currentPoint.secondCoord + 1), listOfPath);
                 }
-                if (IsAvailable(grid, new Point(currentPoint.firstCoord, currentPoint.secondCoord - 1), 
+                if (IsAvailable(grid, new Point(currentPoint.firstCoord, currentPoint.secondCoord - 1),
                     available, ref isFinished))//left
                 {
                     available[currentPoint.firstCoord][currentPoint.secondCoord - 1] = false;
@@ -148,15 +153,16 @@ namespace Task1
                     q.Add(new Point(currentPoint.firstCoord, currentPoint.secondCoord - 1), listOfPath);
                 }
             }
+            if (!isFinished) currentDirections = null;
             return currentDirections;
         }
 
         static bool IsAvailable(char[][] grid, Point p, bool[][] available, ref bool isFinished)
         {
             if (p.firstCoord >= 0
-                && p.secondCoord  >= 0
-                && p.firstCoord  < grid.Length
-                && p.secondCoord  < grid[0].Length)
+                && p.secondCoord >= 0
+                && p.firstCoord < grid.Length
+                && p.secondCoord < grid[0].Length)
             {
                 if ((grid[p.firstCoord][p.secondCoord] == '.') && (available[p.firstCoord][p.secondCoord] == true))
                 {
@@ -248,5 +254,5 @@ namespace Task1
         {
             return queue.Length;
         }
-    }    
+    }
 }
