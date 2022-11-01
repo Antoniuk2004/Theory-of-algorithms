@@ -1,27 +1,21 @@
-﻿using System;
-using System.Collections;
-using System.Text;
+﻿using System.Text;
 
 namespace Task1
 {
     class Program
     {
-
-
         public static void Main()
         {
             Console.OutputEncoding = Encoding.Unicode;
             char[][] grid = GridInput();
             Point start = FindPoints(grid, 'S');
             List<List<Point>> listOfPaths = new List<List<Point>>();
-            bool finish;
-            List<Point> path = FindPath(grid, start, out listOfPaths);
+            FindPath(grid, start, out listOfPaths);
             OutputSteps(listOfPaths, grid);
         }
 
         public static void OutputSteps(List<List<Point>> list, char[][] grid)
         {
-
             for (int i = 0; i < list.Count; i++)
             {
                 char[][] temp = new char[grid.Length][];
@@ -36,17 +30,15 @@ namespace Task1
                         temp[p][l] = grid[p][l];
                     }
                 }
-
-
                 for (int j = 0; j < list[i].Count - 1; j++)
                 {
                     temp[list[i][j].firstCoord][list[i][j].secondCoord] = grid[list[i][j].firstCoord][list[i][j].secondCoord];
                     temp[list[i][j].firstCoord][list[i][j].secondCoord] = '■';
                 }
-
                 temp[list[i][list[i].Count - 1].firstCoord][list[i][list[i].Count - 1].secondCoord] = '█';
+                Console.Clear();
                 GridOutput(temp);
-                Console.WriteLine();
+                Thread.Sleep(500);
             }
         }
 
@@ -106,25 +98,20 @@ namespace Task1
 
         public static List<Point> FindPath(char[][] grid, Point start, out List<List<Point>> listOfPaths)
         {
-
-            Queue q = new Queue();
-            q.Create();
-            q.Add(start, new List<Point>());
+            Queue<object> q = new Queue<object>();
+            q.Add(new object[2] { start, new List<Point>() });
             bool[][] available = CreateBoolArr(grid);
             List<Point> currentDirections = new List<Point>();
             listOfPaths = new List<List<Point>>();
             while (q.GetSize() > 0)
             {
-                Data currentState = q.Pop();
-                Point currentPoint = currentState.P;
-                currentDirections = currentState.Directions;
+                object currentState = q.Poll();
+                Point currentPoint = (Point)((object[])currentState)[0];
+                currentDirections = (List<Point>)((object[])currentState)[1];
                 if (IsAvailable(grid, new Point(currentPoint.firstCoord + 1,
                     currentPoint.secondCoord), available))//down
                 {
-                    if (grid[currentPoint.firstCoord + 1][currentPoint.secondCoord] == 'F')
-                    {
-                        break;
-                    }
+                    if (grid[currentPoint.firstCoord + 1][currentPoint.secondCoord] == 'F') break;
                     available[currentPoint.firstCoord + 1][currentPoint.secondCoord] = false;
                     List<Point> listOfPath = new List<Point>();
                     for (int i = 0; i < currentDirections.Count; i++)
@@ -132,17 +119,13 @@ namespace Task1
                         listOfPath.Add(currentDirections[i]);
                     }
                     listOfPath.Add(new Point(currentPoint.firstCoord + 1, currentPoint.secondCoord));
-                    q.Add(new Point(currentPoint.firstCoord + 1, currentPoint.secondCoord), listOfPath);
-
+                    q.Add(new object[2] { new Point(currentPoint.firstCoord + 1, currentPoint.secondCoord), listOfPath });
                     listOfPaths.Add(listOfPath);
                 }
                 if (IsAvailable(grid, new Point(currentPoint.firstCoord - 1,
                     currentPoint.secondCoord), available))//up
                 {
-                    if (grid[currentPoint.firstCoord - 1][currentPoint.secondCoord] == 'F')
-                    {
-                        break;
-                    }
+                    if (grid[currentPoint.firstCoord - 1][currentPoint.secondCoord] == 'F') break;
                     available[currentPoint.firstCoord - 1][currentPoint.secondCoord] = false;
                     List<Point> listOfPath = new List<Point>();
                     for (int i = 0; i < currentDirections.Count; i++)
@@ -150,17 +133,13 @@ namespace Task1
                         listOfPath.Add(currentDirections[i]);
                     }
                     listOfPath.Add(new Point(currentPoint.firstCoord - 1, currentPoint.secondCoord));
-                    q.Add(new Point(currentPoint.firstCoord - 1, currentPoint.secondCoord), listOfPath);
-
+                    q.Add(new object[2] { new Point(currentPoint.firstCoord - 1, currentPoint.secondCoord), listOfPath });
                     listOfPaths.Add(listOfPath);
                 }
                 if (IsAvailable(grid, new Point(currentPoint.firstCoord, currentPoint.secondCoord + 1),
                     available))//right
                 {
-                    if (grid[currentPoint.firstCoord][currentPoint.secondCoord + 1] == 'F')
-                    {
-                        break;
-                    }
+                    if (grid[currentPoint.firstCoord][currentPoint.secondCoord + 1] == 'F') break;
                     available[currentPoint.firstCoord][currentPoint.secondCoord + 1] = false;
                     List<Point> listOfPath = new List<Point>();
                     for (int i = 0; i < currentDirections.Count; i++)
@@ -168,17 +147,13 @@ namespace Task1
                         listOfPath.Add(currentDirections[i]);
                     }
                     listOfPath.Add(new Point(currentPoint.firstCoord, currentPoint.secondCoord + 1));
-                    q.Add(new Point(currentPoint.firstCoord, currentPoint.secondCoord + 1), listOfPath);
-
+                    q.Add(new object[2] { new Point(currentPoint.firstCoord, currentPoint.secondCoord + 1), listOfPath });
                     listOfPaths.Add(listOfPath);
                 }
                 if (IsAvailable(grid, new Point(currentPoint.firstCoord, currentPoint.secondCoord - 1),
                     available))//left
                 {
-                    if (grid[currentPoint.firstCoord][currentPoint.secondCoord - 1] == 'F')
-                    {
-                        break;
-                    }
+                    if (grid[currentPoint.firstCoord][currentPoint.secondCoord - 1] == 'F') break;
                     available[currentPoint.firstCoord][currentPoint.secondCoord - 1] = false;
                     List<Point> listOfPath = new List<Point>();
                     for (int i = 0; i < currentDirections.Count; i++)
@@ -186,8 +161,7 @@ namespace Task1
                         listOfPath.Add(currentDirections[i]);
                     }
                     listOfPath.Add(new Point(currentPoint.firstCoord, currentPoint.secondCoord - 1));
-                    q.Add(new Point(currentPoint.firstCoord, currentPoint.secondCoord - 1), listOfPath);
-
+                    q.Add(new object[2] { new Point(currentPoint.firstCoord, currentPoint.secondCoord - 1), listOfPath });
                     listOfPaths.Add(listOfPath);
                 }
             }
@@ -242,44 +216,24 @@ namespace Task1
         }
     }
 
-    public class Data
+    public class Queue<T>
     {
-        public Point P { get; set; }
-        public List<Point> Directions { get; set; }
+        public T[] queue;
 
-        public Data(Point p, List<Point> list)
+        public Queue()
         {
-            P = p;
-            Directions = list;
-        }
-    }
-
-    public class Queue
-    {
-        public Data[] queue;
-
-        public Data[] Create()
-        {
-            queue = new Data[0];
-            return queue;
+            queue = new T[0];
         }
 
-        public Data[] Add(Point point, List<Point> list)
+        public void Add(T value)
         {
-            Data[] newQueue = new Data[queue.Length + 1];
-            for (int i = 0; i < queue.Length; i++)
-            {
-                newQueue[i] = queue[i];
-            }
-            newQueue[queue.Length] = new Data(point, list);
-            queue = newQueue;
-            return queue;
-
+            Array.Resize<T>(ref queue, queue.Length + 1);
+            queue[queue.Length - 1] = value;
         }
-        public Data Pop()
+        public object Poll()
         {
-            Data[] newQueue = new Data[queue.Length - 1];
-            Data value = queue[0];
+            T[] newQueue = new T[queue.Length - 1];
+            T value = queue[0];
             for (int i = 0; i < newQueue.Length; i++)
             {
                 newQueue[i] = queue[i + 1];
