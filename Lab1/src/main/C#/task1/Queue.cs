@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Task1
+﻿namespace Task1
 {
     class Program
     {
@@ -8,32 +6,24 @@ namespace Task1
         {
         }
     }
-    class Queue
+    class Queue<T>
     {
-        public object[] queue;
+        public T[] queue;
 
-        public object[] Create()
+        public Queue()
         {
-            queue = new object[0];
-            return queue;
+            queue = new T[0];
         }
 
-        public object[] Add(object value)
+        public void Add(T value)
         {
-            object[] newQueue = new object[queue.Length + 1];
-            for (int i = 0; i < queue.Length; i++)
-            {
-                newQueue[i] = queue[i];
-            }
-            newQueue[queue.Length] = value;
-            queue = newQueue;
-            return queue;
-
+            Array.Resize<T>(ref queue, queue.Length + 1);
+            queue[queue.Length - 1] = value;
         }
-        public object Pop()
+        public object Poll()
         {
-            object[] newQueue = new object[queue.Length - 1];
-            object value = queue[0];
+            T[] newQueue = new T[queue.Length - 1];
+            T value = queue[0];
             for (int i = 0; i < newQueue.Length; i++)
             {
                 newQueue[i] = queue[i + 1];
