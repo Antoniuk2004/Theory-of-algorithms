@@ -1,1 +1,1 @@
-Lab1
+Theory-of-algorithms
